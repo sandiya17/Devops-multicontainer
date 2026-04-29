@@ -1,0 +1,40 @@
+services:
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - speakup-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      - speakup-network
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/speakup
+
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    networks:
+      - speakup-network
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  speakup-network:
+
+volumes:
+  mongo-data:
