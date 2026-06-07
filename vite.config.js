@@ -5,8 +5,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
 
-  // ✅ IMPORTANT: your index.html is inside /index folder
-  root: 'index',
+  // ❌ REMOVE root: 'index'
 
   resolve: {
     alias: {
@@ -22,7 +21,7 @@ export default defineConfig({
   base: '/',
 
   build: {
-    outDir: '../dist',
+    outDir: 'dist',
     emptyOutDir: true,
   },
 });
